@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from functools import wraps
 from .forms import DogOwnerRegistrationForm, EligibilityPolicyForm, StaffPermissionForm, DogOwnerProfileForm
+from .forms_clinic import VetClinicRegistrationForm
 from .models import EligibilityPolicy, StaffPermission, User, DogDonor, Notification, BloodDonation
 
 
@@ -243,6 +244,27 @@ def owner_profile(request):
 
     return render(request, 'core/owner_profile.html', {'form': form})
 
+# ─── Vet Clinic Registration ──────────────────────────────────────────────────
+
+def register_vet_clinic(request):
+    if request.user.is_authenticated:
+        return redirect(get_dashboard_url(request.user))
+
+    if request.method == 'POST':
+        form = VetClinicRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(
+                request,
+                f'Welcome, {user.first_name}! Your clinic account has been created.'
+            )
+            return redirect('clinic_dashboard')
+    else:
+        form = VetClinicRegistrationForm()
+
+    return render(request, 'core/register_vet_clinic.html', {'form': form})
+
 
 @login_required
 def donation_history(request):
@@ -317,3 +339,22 @@ def eligibility_policy(request):
 
 def contact_us(request):
     return render(request, 'core/contact_us.html')
+
+def register_vet_clinic(request): 
+    if request.user.is_authenticated:
+        return redirect(get_dashboard_url(request.user))
+
+    if request.method == 'POST':
+        form = VetClinicRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(
+                request,
+                f'Welcome, {user.first_name}! Your clinic account has been created.'
+            )
+            return redirect('clinic_dashboard')
+    else:
+        form = VetClinicRegistrationForm()
+
+    return render(request, 'core/register_vet_clinic.html', {'form': form})

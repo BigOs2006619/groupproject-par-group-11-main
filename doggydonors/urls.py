@@ -3,8 +3,8 @@ from django.urls import path
 from core import views
 
 urlpatterns = [
-    
-    # Dog donor (stub)
+
+    # Dog donor
     path('register/dog-donor/', views.register_dog_donor, name='register_dog_donor'),
     path('donation/eligibility/', views.donation_eligibility, name='donation_eligibility'),
     path('assessment/eligibility/', views.donor_eligibility_assessment, name='donor_eligibility_assessment'),
@@ -12,7 +12,7 @@ urlpatterns = [
     path('donation/request/', views.blood_donation_request, name='blood_donation_request'),
     path('donation/record/', views.record_blood_donation, name='record_blood_donation'),
     path('eligibility-policy/', views.eligibility_policy, name='eligibility_policy'),
-    
+
     # Landing page
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
@@ -28,6 +28,7 @@ urlpatterns = [
     path('donation-history/', views.donation_history, name='donation_history'),
 
     # Vet clinic
+    path('register/vet-clinic/', views.register_vet_clinic, name='register_vet_clinic'),
     path('dashboard/clinic/', views.clinic_dashboard, name='clinic_dashboard'),
 
     # Staff
@@ -55,4 +56,3 @@ urlpatterns = [
     # Public eligibility requirements
     path('eligibility-requirements/', views.eligibility_requirements, name='eligibility_requirements'),
 ]
-# Dog donor (stub)

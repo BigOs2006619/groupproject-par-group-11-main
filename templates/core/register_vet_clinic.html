@@ -1,0 +1,223 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Vet Clinic Registration – Dwight Doggy Donors</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body>
+
+    <!-- Site Header -->
+    <div class="site-header">
+        <h1><a href="{% url 'home' %}">Dwight Doggy Donors</a></h1>
+        <div class="header-user">
+            {% if user.is_authenticated %}
+                <span id="user-display">{{ user.first_name|default:user.email }}</span>
+                <form method="post" action="{% url 'logout' %}" style="display:inline;" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" id="logout-btn">Logout</button>
+                </form>
+            {% else %}
+                <span id="user-display">Guest</span>
+                <a href="{% url 'login' %}" id="login-btn">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="{% url 'register_dog_owner' %}">Dog Owner Registration</a></li>
+                <li><a href="{% url 'register_vet_clinic' %}">Vet Clinic Registration</a></li>
+                <li><a href="{% url 'eligibility_requirements' %}">Eligibility Requirements</a></li>
+                <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Django server-side messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{% if message.tags == 'success' %}success-notification{% else %}error-notification{% endif %}">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Registration Form -->
+    <div class="form">
+        <form id="vet-clinic-registration" method="post" novalidate>
+            {% csrf_token %}
+
+            <h3>Clinic Details</h3>
+
+            <!-- Clinic Name -->
+            <label for="id_clinic_name"><b>Clinic Name</b></label>
+            {{ form.clinic_name }}
+            <span class="error-msg" id="id_clinic_name-error">
+                {% for error in form.clinic_name.errors %}{{ error }}{% endfor %}
+            </span>
+
+            <!-- Clinic Contact Details -->
+            <label for="id_clinic_contact_details"><b>Clinic Contact Details</b></label>
+            {{ form.clinic_contact_details }}
+            <span class="error-msg" id="id_clinic_contact_details-error">
+                {% for error in form.clinic_contact_details.errors %}{{ error }}{% endfor %}
+            </span>
+
+            <h3>Login Credentials</h3>
+
+            <!-- Email -->
+            <label for="id_email"><b>Email Address</b> <small>(used as your username)</small></label>
+            {{ form.email }}
+            <span class="error-msg" id="id_email-error">
+                {% for error in form.email.errors %}{{ error }}{% endfor %}
+            </span>
+
+            <!-- Password -->
+            <label for="id_password1"><b>Password</b></label>
+            {{ form.password1 }}
+            <span class="error-msg" id="id_password1-error">
+                {% for error in form.password1.errors %}{{ error }}{% endfor %}
+            </span>
+
+            <!-- Confirm Password -->
+            <label for="id_password2"><b>Confirm Password</b></label>
+            {{ form.password2 }}
+            <span class="error-msg" id="id_password2-error">
+                {% for error in form.password2.errors %}{{ error }}{% endfor %}
+            </span>
+
+            <button type="submit">Register Clinic</button>
+        </form>
+
+        <p style="text-align:center; margin-top:16px; font-size:0.9rem;">
+            Already have an account? <a href="{% url 'login' %}" style="color:skyblue;">Login here</a>
+        </p>
+    </div>
+
+    <!-- Site Footer -->
+    <div class="site-footer">
+        <p>&copy; 2026 Dwight Doggy Donors. All rights reserved.</p>
+        <a href="{% url 'contact_us' %}">Contact Us</a>
+    </div>
+
+    <!-- Shared validation helpers from your project -->
+    <script src="{% static 'js/validation.js' %}"></script>
+
+    <!-- Client-side validation for vet clinic registration -->
+    <script>
+        // ── Set today as minimum date limit (used if needed) ──────────
+        const today = new Date().toISOString().split('T')[0];
+
+        // ── Validate each field individually ──────────────────────────
+        function validateField(fieldId) {
+            clearError(fieldId);
+
+            switch (fieldId) {
+
+                case 'id_clinic_name': {
+                    const val = document.getElementById('id_clinic_name').value.trim();
+                    if (!isNotEmpty(val)) {
+                        showError(fieldId, 'Clinic name is required.');
+                    } else if (!isValidLength(val, 2, 100)) {
+                        showError(fieldId, 'Clinic name must be between 2 and 100 characters.');
+                    }
+                    break;
+                }
+
+                case 'id_clinic_contact_details': {
+                    const val = document.getElementById('id_clinic_contact_details').value.trim();
+                    if (!isNotEmpty(val)) {
+                        showError(fieldId, 'Clinic contact details are required.');
+                    } else {
+                        // Accept Australian phone OR valid email
+                        const isPhone = /^0[2-478]\d{8}$/.test(val);
+                        const isEmail = isValidEmail(val);
+                        if (!isPhone && !isEmail) {
+                            showError(fieldId, 'Enter a valid Australian phone number (e.g. 0298765432) or email address.');
+                        }
+                    }
+                    break;
+                }
+
+                case 'id_email': {
+                    const val = document.getElementById('id_email').value.trim();
+                    if (!isNotEmpty(val)) {
+                        showError(fieldId, 'Email address is required.');
+                    } else if (!isValidEmail(val)) {
+                        showError(fieldId, 'Please enter a valid email address (e.g. clinic@example.com).');
+                    }
+                    break;
+                }
+
+                case 'id_password1': {
+                    const val = document.getElementById('id_password1').value;
+                    if (!isNotEmpty(val)) {
+                        showError(fieldId, 'Password is required.');
+                    } else if (!isValidStrongPassword(val)) {
+                        showError(fieldId, 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character (@$!%*?&).');
+                    }
+                    // Re-check confirm password whenever password changes
+                    const confirmVal = document.getElementById('id_password2').value;
+                    if (confirmVal.length > 0) validateField('id_password2');
+                    break;
+                }
+
+                case 'id_password2': {
+                    const password = document.getElementById('id_password1').value;
+                    const confirm  = document.getElementById('id_password2').value;
+                    if (!isNotEmpty(confirm)) {
+                        showError(fieldId, 'Please confirm your password.');
+                    } else if (!isValidConfirmPassword(password, confirm)) {
+                        showError(fieldId, 'Passwords do not match.');
+                    }
+                    break;
+                }
+            }
+        }
+
+        // ── Attach blur + input listeners to all fields ────────────────
+        const allFields = [
+            'id_clinic_name',
+            'id_clinic_contact_details',
+            'id_email',
+            'id_password1',
+            'id_password2',
+        ];
+
+        allFields.forEach(function (fieldId) {
+            const el = document.getElementById(fieldId);
+            if (!el) return;
+            // Validate on blur (when user clicks out of field)
+            el.addEventListener('blur', function () { validateField(fieldId); });
+            // Clear error while typing
+            el.addEventListener('input', function () { clearError(fieldId); });
+        });
+
+        // ── Block form submit if any client-side errors exist ──────────
+        document.getElementById('vet-clinic-registration')
+            .addEventListener('submit', function (event) {
+
+                // Run every validator
+                allFields.forEach(validateField);
+
+                // Check if any error span has text in it
+                const hasErrors = allFields.some(function (fieldId) {
+                    const errEl = document.getElementById(fieldId + '-error');
+                    return errEl && errEl.textContent.trim() !== '';
+                });
+
+                if (hasErrors) {
+                    event.preventDefault(); // Stop form from submitting
+                }
+            });
+    </script>
+
+</body>
+</html>
