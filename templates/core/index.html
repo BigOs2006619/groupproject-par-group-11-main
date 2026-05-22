@@ -1,0 +1,85 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dwight Doggy Donors</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body>
+    <div class="site-header">
+        <h1><a href="{% url 'index' %}">Dwight Doggy Donors</a></h1>
+        <div class="header-user">
+            {% if user.is_authenticated %}
+                <span id="user-display">{{ user.first_name }} {{ user.last_name }}</span>
+                <a href="{% url 'logout' %}" id="logout-btn">Logout</a>
+            {% else %}
+                <span id="user-display">Guest</span>
+                <a href="{% url 'login' %}" id="login-btn">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="{% url 'register_dog_owner' %}">Dog Owner Registration</a></li>
+                <li><a href="{% url 'eligibility_requirements' %}">Donor Eligibility Requirements</a></li>
+                {% if user.is_authenticated %}
+                    {% if user.role == 'dog_owner' %}
+                        <li><a href="{% url 'owner_dashboard' %}">My Dashboard</a></li>
+                        <li><a href="{% url 'donation_history' %}">Donation History</a></li>
+                        <li><a href="{% url 'owner_profile' %}">Update Profile</a></li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="{% if message.tags == 'success' %}success-notification{% else %}error-notification{% endif %}">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="welcome-content">
+        <h2>Welcome to Dwight Doggy Donors</h2>
+        <br />
+        <p>Find information about dog donation and registration.</p>
+        <br />
+    </div>
+
+    <div class="main-content">
+        <h2>About Us</h2>
+        <br />
+        <p>
+            Welcome to Dwight Doggy Donors! We are dedicated to facilitating dog
+            blood donations for the benefit of fellow canine patient needs.
+        </p>
+        <br />
+        <p>
+            We at Dwight Doggy Donors understand the importance of canine blood
+            donations in saving lives and improving the health of dogs in need. Our
+            mission is to connect dog owners with willing canine donors, ensuring a
+            steady supply of blood for veterinary clinics and hospitals. By
+            fostering a community of compassionate dog owners and donors, we aim to
+            make a positive impact on the lives of dogs and their owners. Whether
+            you're a dog owner looking to register your furry friend as a donor or a
+            veterinary professional seeking to find suitable donors for your
+            patients, Dwight Doggy Donors is here to support you every step.
+        </p>
+        <br />
+        <a href="{% url 'register_dog_owner' %}">Come and Register with Us Today</a>
+    </div>
+
+    <div class="site-footer">
+        <p>&copy; 2026 Dwight Doggy Donors. All rights reserved.</p>
+    </div>
+
+    <script src="{% static 'js/validation.js' %}"></script>
+</body>
+</html>

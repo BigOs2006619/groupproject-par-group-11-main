@@ -1,0 +1,102 @@
+<!-- blood-donation-request-form -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Blood Donation Request Form</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+    <div class="site-header">
+        <h1><a href="index.html">Dwight Doggy Donors</a></h1>
+        <div class="header-user">
+            <span id="user-display">Guest</span>
+            <a href="pages/contact-us.html" id="login-btn">Login</a>
+            <a href="#" id="logout-btn" hidden>Logout</a>
+        </div>
+    </div>
+
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="dog-owner-registration.html">Dog Owner Registration</a></li>
+                <li><a href="dog-donor-registration.html">Dog Donor Registration</a></li>
+                <li><a href="donation-eligibility.html">View Donation Eligibility and Status</a></li>
+                <li><a href="donor-eligibility-assessment.html">Donor Eligibility Assessment</a></li>
+                <li><a href="blood-donation-request.html">Blood Donation Request</a></li>
+                <li><a href="donor-clinic-matching.html">Donor–Clinic Matching</a></li>
+                <li><a href="record-blood-donation.html">Record Blood Donation</a></li>
+                <li><a href="contact-us.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="error-notification" id="error-notification" hidden>
+        <p id="error-message">cannot display information due to an error</p>
+    </div>
+
+    <div class="form">
+        <form id="blood-donation-request" method="post" novalidate>
+
+            <label for="requestingclinicname"><b>Clinic Name</b></label>
+            <input type="text" id="requestingclinicname" name="requestingclinicname" placeholder="Enter Clinic Name" />
+            <span class="error-msg" id="requestingclinicname-error"></span>
+
+            <label for="clinic-email"><b>Clinic Email Address</b></label>
+            <input type="text" id="clinic-email" name="clinic-email" placeholder="Enter Email" />
+            <span class="error-msg" id="clinic-email-error"></span>
+
+            <label for="clinic-phone"><b>Clinic Phone Number</b></label>
+            <input type="tel" id="clinic-phone" name="clinic-phone" placeholder="Enter Phone Number" />
+            <span class="error-msg" id="clinic-phone-error"></span>
+
+            <label for="blood-type"><b>Blood Type</b></label>
+            <select id="blood-type" name="blood-type">
+                <option value="" disabled selected>Select Blood Type</option>
+                <option value="unknown">Unknown / Not Sure</option>
+                <option value="DEA-1-positive">DEA 1 Positive</option>
+                <option value="DEA-1-negative">DEA 1 Negative</option>
+                <option value="other">Other</option>
+            </select>
+            <span class="error-msg" id="blood-type-error"></span>
+
+            <label for="quantity"><b>Required Quantity (mL)</b></label>
+            <input type="number" id="quantity" name="quantity" min="1" max="10" placeholder="Enter volume (mL)" />
+            <span class="error-msg" id="quantity-error"></span>
+
+            <label><b>Urgency Level</b></label>
+            <label>
+                <input type="radio" name="urgency-status" value="emergency" />
+                Emergency
+            </label>
+            <label>
+                <input type="radio" name="urgency-status" value="routine" />
+                Routine
+            </label>
+            <span class="error-msg" id="urgency-error"></span>
+
+            <label for="requireddate"><b>Required Date</b></label>
+            <input type="date" id="requireddate" name="requireddate" />
+            <span class="error-msg" id="requireddate-error"></span>
+
+            <label for="clinicnotes"><b>Additional Clinical Notes (Optional)</b></label>
+            <textarea id="clinicnotes" name="clinicnotes" placeholder="Enter Details" rows="4"></textarea>
+            <span class="error-msg" id="clinicnotes-error"></span>
+
+            <button type="submit">Submit Blood Donation Request</button>
+        </form>
+    </div>
+
+    <div class="site-footer">
+        <p>&copy; 2026 Dwight Doggy Donors. All rights reserved.</p>
+        <a href="pages/contact-us.html">Contact Us</a>
+    </div>
+
+    <script src="../js/validation.js"></script>
+    <script src="../js/forms.js"></script>
+</body>
+
+</html>

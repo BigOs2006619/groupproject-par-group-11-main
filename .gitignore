@@ -1,0 +1,10 @@
+# ignore the virtual environment .venv
+# change the name of the virtual environment on the next line if you are using a different name
+.venv/
+venv/
+
+# ignore other files and folders below as needed
+__pycache__/
+*.pyc
+db.sqlite3
+

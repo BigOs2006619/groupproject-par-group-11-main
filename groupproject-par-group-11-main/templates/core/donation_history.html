@@ -1,0 +1,97 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Donation History</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body>
+    <div class="site-header">
+        <h1><a href="/">Dwight Doggy Donors</a></h1>
+        <div class="header-user">
+            <span id="user-display">{{ request.user.first_name }} {{ request.user.last_name }}</span>
+           <a href="{% url 'logout' %}" id="logout-btn">Logout</a>
+        </div>
+    </div>
+
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="{% url 'owner_dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'owner_profile' %}">Update Profile</a></li>
+                <li><a href="{% url 'donation_history' %}">Donation History</a></li>
+            </ul>
+        </nav>
+    </div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="{% if message.tags == 'success' %}success-notification{% else %}error-notification{% endif %}">
+            <p>{{ message }}</p>
+        </div>
+    {% endfor %}
+{% endif %}
+
+    <div class="form">
+        <h2>Donation History and Eligibility Status</h2>
+
+        {% if dog_data %}
+            {% for entry in dog_data %}
+                <h3>{{ entry.dog.dog_name }}</h3>
+
+                <table>
+                    <tr>
+                        <th>Eligibility Status</th>
+                        <td>{{ entry.dog.eligibility_status }}</td>
+                    </tr>
+                    <tr>
+                        <th>Next Eligible Donation Date</th>
+                        <td>{{ entry.dog.next_eligible_date|default:"Not yet determined" }}</td>
+                    </tr>
+                </table>
+
+                <h4>Donation History</h4>
+                {% if entry.donations %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Donation Date</th>
+                                <th>Volume Donated (ml)</th>
+                                <th>Receiving Clinic</th>
+                                <th>Outcome</th>
+                                <th>Recovery Period End Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for donation in entry.donations %}
+                                <tr>
+                                    <td>{{ donation.donation_date }}</td>
+                                    <td>{{ donation.volume_donated }}</td>
+                                    <td>{{ donation.receiving_clinic }}</td>
+                                    <td>{{ donation.donation_outcome|default:"Pending" }}</td>
+                                    <td>{{ donation.recovery_period_end_date }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No donation history recorded for {{ entry.dog.dog_name }}.</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>You have no registered dogs yet.</p>
+        {% endif %}
+    </div>
+
+    <div class="site-footer">
+        <p>&copy; 2026 Dwight Doggy Donors. All rights reserved.</p>
+    </div>
+
+    <script src="{% static 'js/validation.js' %}"></script>
+</body>
+
+</html>

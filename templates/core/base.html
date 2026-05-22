@@ -1,0 +1,85 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Dwight Doggy Donors{% endblock %}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body>
+    <!-- Site Header -->
+    <div class="site-header">
+        <h1><a href="{% url 'home' %}">Dwight Doggy Donors</a></h1>
+        <div class="header-user">
+            {% if user.is_authenticated %}
+                <span id="user-display">{{ user.first_name|default:user.email }}</span>
+                <form method="post" action="{% url 'logout' %}" style="display:inline;" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" id="logout-btn">Logout</button>
+                </form>
+            {% else %}
+                <span id="user-display">Guest</span>
+                <a href="{% url 'login' %}" id="login-btn">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div class="header-nav">
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    {% if user.role == 'dog_owner' %}
+                        <li><a href="{% url 'owner_dashboard' %}">Dashboard</a></li>
+                        <li><a href="{% url 'register_dog_donor' %}">Register Dog Donor</a></li>
+                        <li><a href="{% url 'donation_eligibility' %}">Donation Eligibility</a></li>
+                        <li><a href="{% url 'notifications' %}">Notifications</a></li>
+                    {% elif user.role == 'vet_clinic' %}
+                        <li><a href="{% url 'clinic_dashboard' %}">Dashboard</a></li>
+                        <li><a href="{% url 'blood_donation_request' %}">Blood Donation Request</a></li>
+                    {% elif user.role == 'staff' %}
+                        <li><a href="{% url 'staff_dashboard' %}">Dashboard</a></li>
+                        <li><a href="{% url 'donor_eligibility_assessment' %}">Eligibility Assessment</a></li>
+                        <li><a href="{% url 'donor_clinic_matching' %}">Donor–Clinic Matching</a></li>
+                        <li><a href="{% url 'record_blood_donation' %}">Record Blood Donation</a></li>
+                    {% elif user.role == 'admin' %}
+                        <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+                        <li><a href="/admin/">Admin Panel</a></li>
+                    {% endif %}
+                {% else %}
+                    <li><a href="{% url 'register_dog_owner' %}">Register</a></li>
+                {% endif %}
+                <li><a href="{% url 'eligibility_requirements' %}">Eligibility Requirements</a></li>
+                <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Django messages (errors, success, etc.) -->
+    {% if messages %}
+        <div class="error-notification">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Page Content -->
+    {% block content %}{% endblock %}
+
+    <!-- Site Footer -->
+    <div class="site-footer">
+        <p>&copy; 2026 Dwight Doggy Donors. All rights reserved.</p>
+        <a href="{% url 'contact_us' %}">Contact Us</a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/validation.js' %}"></script>
+    <script src="{% static 'js/forms.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+
+</html>

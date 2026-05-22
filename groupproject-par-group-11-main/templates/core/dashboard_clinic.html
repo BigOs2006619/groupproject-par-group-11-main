@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Clinic Dashboard – Dwight Doggy Donors{% endblock %}
+
+{% block content %}
+<div class="main-content" style="padding: 40px 32px; max-width: 800px; margin: 0 auto;">
+    <h2>Welcome, {{ user.first_name|default:user.email }}</h2>
+    <p style="margin-top: 8px; margin-bottom: 24px;">Manage blood donation requests for your clinic.</p>
+
+    <div class="dashboard-cards">
+
+        <div class="dashboard-card">
+            <h3>Submit Blood Donation Request</h3>
+            <p>Request blood donations for your clinic patients.</p>
+            <a href="{% url 'blood_donation_request' %}" class="dashboard-link">New Request →</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

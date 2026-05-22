@@ -1,0 +1,91 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Update Profile</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body>
+    <div class="site-header">
+        <h1><a href="/">Dwight Doggy Donors</a></h1>
+        <div class="header-user">
+            <span id="user-display">{{ user.first_name }} {{ user.last_name }}</span>
+            <a href="#" id="logout-btn">Logout</a>
+        </div>
+    </div>
+
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="{% url 'owner_dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'owner_profile' %}">Update Profile</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    {% if messages %}
+    {% for message in messages %}
+        <div class="{% if message.tags == 'success' %}success-notification{% else %}error-notification{% endif %}">
+            <p>{{ message }}</p>
+        </div>
+    {% endfor %}
+{% endif %}
+
+    <div class="form">
+        <h2>Update Your Profile</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            <label for="{{ form.first_name.id_for_label }}"><b>First Name</b></label>
+            {{ form.first_name }}
+            <span class="error-msg">{{ form.first_name.errors }}</span>
+
+            <label for="{{ form.last_name.id_for_label }}"><b>Last Name</b></label>
+            {{ form.last_name }}
+            <span class="error-msg">{{ form.last_name.errors }}</span>
+
+            <label for="{{ form.email.id_for_label }}"><b>Email</b></label>
+            {{ form.email }}
+            <span class="error-msg">{{ form.email.errors }}</span>
+
+            <label for="{{ form.mobile.id_for_label }}"><b>Mobile</b></label>
+            {{ form.mobile }}
+            <span class="error-msg">{{ form.mobile.errors }}</span>
+
+            <label for="{{ form.street.id_for_label }}"><b>Street</b></label>
+            {{ form.street }}
+            <span class="error-msg">{{ form.street.errors }}</span>
+
+            <label for="{{ form.suburb.id_for_label }}"><b>Suburb</b></label>
+            {{ form.suburb }}
+            <span class="error-msg">{{ form.suburb.errors }}</span>
+
+            <label for="{{ form.state.id_for_label }}"><b>State</b></label>
+            {{ form.state }}
+            <span class="error-msg">{{ form.state.errors }}</span>
+
+            <label for="{{ form.postcode.id_for_label }}"><b>Postcode</b></label>
+            {{ form.postcode }}
+            <span class="error-msg">{{ form.postcode.errors }}</span>
+
+            <h3>Change Password (optional)</h3>
+
+            <label for="{{ form.new_password.id_for_label }}"><b>New Password</b></label>
+            {{ form.new_password }}
+            <span class="error-msg">{{ form.new_password.errors }}</span>
+
+            <label for="{{ form.confirm_password.id_for_label }}"><b>Confirm New Password</b></label>
+            {{ form.confirm_password }}
+            <span class="error-msg">{{ form.confirm_password.errors }}</span>
+
+            <span class="error-msg">{{ form.non_field_errors }}</span>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+
+    <div class="s

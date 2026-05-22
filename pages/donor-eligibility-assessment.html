@@ -1,0 +1,112 @@
+<!-- donor-eligibility-assessment -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Donor Eligibility Assessment Form</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+    <div class="site-header">
+        <h1>Dwight Doggy Donors</h1>
+        <div class="header-user">
+        <span id="user-display">Guest</span>
+        <a href="pages/contact-us.html" id="login-btn">Login</a>
+        <a href="#" id="logout-btn" hidden>Logout</a>
+      </div>
+    </div>
+
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li>
+                    <a href="dog-owner-registration.html">Dog Owner Registration</a>
+                </li>
+                <li>
+                    <a href="dog-donor-registration.html">Dog Donor Registration</a>
+                </li>
+                <li>
+                    <a href="donation-eligibility.html">View Donation Eligibility and Status</a>
+                </li>
+                <li>
+                    <a href="donor-eligibility-assessment.html">Donor Eligibility Assessment</a>
+                </li>
+                <li>
+                    <a href="blood-donation-request.html">Blood Donation Request</a>
+                </li>
+                <li>
+                    <a href="donor-clinic-matching.html">Donor–Clinic Matching</a>
+                </li>
+                <li>
+                    <a href="record-blood-donation.html">Record Blood Donation</a>
+                </li>
+                <li>
+                    <a href="contact-us.html">Contact Us</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="error-notification" id="error-notification" hidden>
+        <p id="error-message">cannot display information due to an error</p>
+    </div>
+
+    <div class="form">
+        <form id="donor-eligibility-assessment" method="post" novalidate>
+
+            <label for="selected-dog"><b>Selected Dog</b></label>
+            <select id="selected-dog" name="selected-dog">
+                <option value="" disabled selected>Select a Registered Donor Dog</option>
+            </select>
+            <span class="error-msg" id="selected-dog-error"></span>
+
+            <label for="assessment-date"><b>Assessment Date</b></label>
+            <input type="date" id="assessment-date" name="assessment-date" />
+            <span class="error-msg" id="assessment-date-error"></span>
+
+            <label for="assessed-by"><b>Assessed By</b></label>
+            <select id="assessed-by" name="assessed-by">
+                <option value="" disabled selected>Select Authorised Staff Member</option>
+            </select>
+            <span class="error-msg" id="assessed-by-error"></span>
+
+            <label><b>Eligibility Status</b></label>
+            <div class="radio-group">
+                <label><input type="radio" name="eligibility-status" id="status-eligible" value="eligible" /> <b>Eligible</b> — Dog meets all criteria and is approved to donate</label>
+                <label><input type="radio" name="eligibility-status" id="status-temp-ineligible" value="temporarily-ineligible" /> <b>Temporarily Ineligible</b> — Dog does not currently meet criteria but may be re-assessed in future</label>
+                <label><input type="radio" name="eligibility-status" id="status-perm-ineligible" value="permanently-ineligible" /> <b>Permanently Ineligible</b> — Dog is permanently excluded from the donation program</label>
+            </div>
+            <span class="error-msg" id="eligibility-status-error"></span>
+
+            <div id="ineligibility-details" hidden>
+                <label for="reason-ineligibility"><b>Reason for Ineligibility</b></label>
+                <textarea
+                    id="reason-ineligibility"
+                    name="reason-ineligibility"
+                    placeholder="Describe the reason the dog has been assessed as ineligible..."
+                    rows="4"
+                ></textarea>
+                <span class="error-msg" id="reason-ineligibility-error"></span>
+
+                <label for="next-eligible-date"><b>Next Eligible Date</b></label>
+                <input type="date" id="next-eligible-date" name="next-eligible-date" />
+                <span class="error-msg" id="next-eligible-date-error"></span>
+                <small>Only required if status is <b>Temporarily Ineligible</b>.</small>
+            </div>
+
+            <button type="submit">Submit Assessment</button>
+        </form>
+    </div>
+
+    <div class="site-footer">
+        <p>&copy; 2026 Dwight Doggy Donors. All rights reserved.</p>
+        <a href="pages/contact-us.html">Contact Us</a>
+    </div>
+
+    <script src="../js/validation.js"></script>
+    <script src="../js/forms.js"></script>
+
+</body>
+</html>

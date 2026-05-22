@@ -1,0 +1,129 @@
+<!-- dog-donor-registration-form -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dog Donor Registration Form</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+    
+<body>
+    <div class="site-header">
+        <h1>Dwight Doggy Donors</h1>
+        <div class="header-user">
+        <span id="user-display">Guest</span>
+        <a href="pages/contact-us.html" id="login-btn">Login</a>
+        <a href="#" id="logout-btn" hidden>Logout</a>
+      </div>
+    </div>
+
+    <div class="header-nav">
+        <nav>
+            <!-- these are temporary navigation links by Khalid... -->
+            <ul>
+                <li>
+                    <a href="dog-owner-registration.html">Dog Owner Registration</a>
+                </li>
+                <li>
+                    <a href="dog-donor-registration.html">Dog Donor Registration</a>
+                </li>
+                <li>
+                    <a href="donation-eligibility.html">View Donation Eligibility and Status</a>
+                </li>
+                <li>
+                    <a href="donor-eligibility-assessment.html">Donor Eligibility Assessment</a>
+                </li>
+                <li>
+                    <a href="blood-donation-request.html">Blood Donation Request</a>
+                </li>
+                <li>
+                    <a href="donor-clinic-matching.html">Donor–Clinic Matching</a>
+                </li>
+                <li>
+                    <a href="record-blood-donation.html">Record Blood Donation</a>
+                </li>
+                <li>
+                    <a href="contact-us.html">Contact Us</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Error Notifications will be displayed here -->
+    <div class="error-notification" id="error-notification" hidden>
+        <p id="error-message">cannot display information due to an error</p>
+    </div>
+    <div class="form">
+        <form id="dog-donor-registration" method="post" novalidate>
+
+            <label for="owner-name"><b>Owner Name</b></label>
+            <input type="text" id="owner-name" placeholder="Enter Owner Full Name" name="owner-name" />
+            <span id="owner-name-error" class="error-msg"></span>
+
+            <label for="dog-name"><b>Dog Name</b></label>
+            <input type="text" id="dog-name" placeholder="Enter Dog's Name" name="dog-name" />
+            <span id="dog-name-error" class="error-msg"></span>
+
+            <label for="breed"><b>Breed</b></label>
+            <input type="text" id="breed" placeholder="Enter Breed" name="breed" />
+            <span id="breed-error" class="error-msg"></span>
+
+            <label for="age"><b>Age (years)</b></label>
+            <input type="number" id="age" placeholder="Enter Age" name="age" min="1" max="15" />
+            <span id="age-error" class="error-msg"></span>
+
+            <label for="weight"><b>Weight (kg)</b></label>
+            <input type="number" id="weight" placeholder="Enter Weight in kg" name="weight" min="1" max="100" step="0.1" />
+            <span id="weight-error" class="error-msg"></span>
+
+            <label for="gender"><b>Gender</b></label>
+            <select id="gender" name="gender">
+                <option value="">-- Select Gender --</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="male-desexed">Male (Desexed)</option>
+                <option value="female-desexed">Female (Desexed)</option>
+            </select>
+            <span id="gender-error" class="error-msg"></span>
+
+            <label for="blood-type"><b>Blood Type (if known)</b></label>
+            <select id="blood-type" name="blood-type">
+                <option value="">Unknown / Not Sure</option>
+                <option value="DEA-1-positive">DEA 1 Positive</option>
+                <option value="DEA-1-negative">DEA 1 Negative</option>
+                <option value="other">Other</option>
+            </select>
+            <span id="blood-type-error" class="error-msg"></span>
+
+            <label><b>Vaccination Status</b></label>
+            <div class="radio-group">
+                <label><input type="radio" name="vaccination-status" value="up-to-date" /> My dog's vaccinations are <b>up to date</b></label>
+                <label><input type="radio" name="vaccination-status" value="not-up-to-date" /> My dog's vaccinations are <b>not up to date</b></label>
+                <label><input type="radio" name="vaccination-status" value="unknown" /> I am <b>unsure</b> of my dog's vaccination status</label>
+            </div>
+            <span id="vaccination-status-error" class="error-msg"></span>
+
+            <label><b>Health Declaration</b></label>
+            <div class="radio-group">
+                <label><input type="checkbox" name="health-declaration-1" /> My dog is in good general health and has not shown signs of illness in the past 30 days.</label>
+                <label><input type="checkbox" name="health-declaration-2" /> My dog has not received any medications or treatments in the past 30 days.</label>
+                <label><input type="checkbox" name="health-declaration-3" /> My dog has not travelled internationally in the past 6 months.</label>
+                <label><input type="checkbox" name="health-declaration-4" /> I consent to my dog participating in the blood donation program and confirm the information provided is accurate.</label>
+            </div>
+            <span id="health-declaration-error" class="error-msg"></span>
+
+            <button type="submit">Register Dog Donor</button>
+        </form>
+    </div>
+
+    <div class="site-footer">
+        <p>&copy; 2026 Dwight Doggy Donors. All rights reserved.</p>
+        <a href="pages/contact-us.html">Contact Us</a>
+    </div>
+    <script src="../js/validation.js"></script>
+    <script src="../js/forms.js"></script>
+</body>
+
+</html>

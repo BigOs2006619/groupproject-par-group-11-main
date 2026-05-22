@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Donor–Clinic Matching</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+    <div class="site-header">
+        <h1>Dwight Doggy Donors</h1>
+        <div class="header-user">
+            <span id="user-display">Guest</span>
+            <a href="pages/contact-us.html" id="login-btn">Login</a>
+            <a href="#" id="logout-btn" hidden>Logout</a>
+        </div>
+    </div>
+
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="dog-owner-registration.html">Dog Owner Registration</a></li>
+                <li><a href="dog-donor-registration.html">Dog Donor Registration</a></li>
+                <li><a href="donation-eligibility.html">View Donation Eligibility and Status</a></li>
+                <li><a href="donor-eligibility-assessment.html">Donor Eligibility Assessment</a></li>
+                <li><a href="blood-donation-request.html">Blood Donation Request</a></li>
+                <li><a href="donor-clinic-matching.html">Donor–Clinic Matching</a></li>
+                <li><a href="record-blood-donation.html">Record Blood Donation</a></li>
+                <li><a href="contact-us.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="error-notification" id="error-notification" hidden>
+        <p id="error-message">cannot display information due to an error</p>
+    </div>
+
+    <div class="form">
+        <form id="donor-clinic-matching" method="post" novalidate>
+
+            <label for="donation-request"><b>Selected Donation Request</b></label>
+            <select id="donation-request" name="donation-request">
+                <option value="" disabled selected>-- Select a Donation Request --</option>
+                <option value="REQ-001">REQ-001 – Paws Vet Clinic (DEA 1.1+, 450mL, Routine)</option>
+                <option value="REQ-002">REQ-002 – Harbour Animal Hospital (DEA 1.1-, 250mL, Emergency)</option>
+                <option value="REQ-003">REQ-003 – Westside Vet Centre (DEA 3, 300mL, Routine)</option>
+            </select>
+            <span class="error-msg" id="donation-request-error"></span>
+
+            <label for="donor-dogs"><b>Potential Donor Dog(s)</b></label>
+            <select id="donor-dogs" name="donor-dogs" multiple size="4">
+                <option value="" disabled>-- Select a Potential Donor --</option>
+                <option value="DOG-001">Buddy (Labrador, DEA 1.1+, Eligible)</option>
+                <option value="DOG-002">Max (Golden Retriever, DEA 1.1+, Eligible)</option>
+                <option value="DOG-003">Bella (German Shepherd, DEA 1.1-, Eligible)</option>
+                <option value="DOG-004">Rex (Border Collie, DEA 3, Eligible)</option>
+            </select>
+            <small>Hold Ctrl (Windows) or Cmd (Mac) to select multiple donor dogs.</small>
+            <span class="error-msg" id="donor-dogs-error"></span>
+
+            <label><b>Eligibility Confirmation</b></label>
+            <div class="radio-group">
+                <label>
+                    <input type="checkbox" id="eligibility-confirmed" name="eligibility-confirmed" />
+                    I confirm that I have reviewed the full eligibility profile of the selected donor dog(s), including health status, vaccination records, donation history, and recovery period, and that each selected dog is currently eligible to donate.
+                </label>
+            </div>
+            <span class="error-msg" id="eligibility-confirmed-error"></span>
+
+            <label for="match-decision"><b>Match Decision</b></label>
+            <select id="match-decision" name="match-decision">
+                <option value="" disabled selected>-- Select a Decision --</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+                <option value="deferred">Deferred</option>
+            </select>
+            <span class="error-msg" id="match-decision-error"></span>
+
+            <label for="matched-by"><b>Matched By (Authorised Staff)</b></label>
+            <input type="text" id="matched-by" name="matched-by" placeholder="Auto-populated from logged-in staff account" readonly />
+
+            <label for="notes"><b>Notes</b></label>
+            <textarea id="notes" name="notes" placeholder="Enter any additional notes about this match decision (e.g., rationale for deferral, alternative donors being considered)" rows="5"></textarea>
+            <span class="error-msg" id="notes-error"></span>
+
+            <button type="submit">Submit Match</button>
+        </form>
+    </div>
+
+    <div class="site-footer">
+        <p>&copy; 2026 Dwight Doggy Donors. All rights reserved.</p>
+        <a href="contact-us.html">Contact Us</a>
+    </div>
+
+    <script src="../js/validation.js"></script>
+    <script src="../js/forms.js"></script>
+
+</body>
+
+</html>

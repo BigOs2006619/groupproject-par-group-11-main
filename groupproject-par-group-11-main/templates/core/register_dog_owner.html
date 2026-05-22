@@ -1,0 +1,99 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Dog Owner Registration Form</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body>
+    <div class="site-header">
+        <h1><a href="/">Dwight Doggy Donors</a></h1>
+        <div class="header-user">
+            {% if user.is_authenticated %}
+                <span id="user-display">{{ user.first_name }}</span>
+               <a href="{% url 'logout' %}" id="logout-btn">Logout</a>
+            {% else %}
+                <span id="user-display">Guest</span>
+                <a href="{% url 'login' %}" id="login-btn">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="{% url 'register_dog_owner' %}">Dog Owner Registration</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Django messages (server-side errors) -->
+    {% if messages %}
+    {% for message in messages %}
+        <div class="{% if message.tags == 'success' %}success-notification{% else %}error-notification{% endif %}">
+            <p>{{ message }}</p>
+        </div>
+    {% endfor %}
+{% endif %}
+
+    <div class="form">
+        <form id="dog-owner-information" method="post" novalidate>
+            {% csrf_token %}
+
+            <label for="{{ form.first_name.id_for_label }}"><b>First Name</b></label>
+            {{ form.first_name }}
+            <span class="error-msg">{{ form.first_name.errors }}</span>
+
+            <label for="{{ form.last_name.id_for_label }}"><b>Last Name</b></label>
+            {{ form.last_name }}
+            <span class="error-msg">{{ form.last_name.errors }}</span>
+
+            <label for="{{ form.mobile.id_for_label }}"><b>Mobile</b></label>
+            {{ form.mobile }}
+            <span class="error-msg">{{ form.mobile.errors }}</span>
+
+            <label for="{{ form.street.id_for_label }}"><b>Street</b></label>
+            {{ form.street }}
+            <span class="error-msg">{{ form.street.errors }}</span>
+
+            <label for="{{ form.suburb.id_for_label }}"><b>Suburb</b></label>
+            {{ form.suburb }}
+            <span class="error-msg">{{ form.suburb.errors }}</span>
+
+            <label for="{{ form.state.id_for_label }}"><b>State</b></label>
+            {{ form.state }}
+            <span class="error-msg">{{ form.state.errors }}</span>
+
+            <label for="{{ form.postcode.id_for_label }}"><b>Postcode</b></label>
+            {{ form.postcode }}
+            <span class="error-msg">{{ form.postcode.errors }}</span>
+
+            <label for="{{ form.email.id_for_label }}"><b>Email</b></label>
+            {{ form.email }}
+            <span class="error-msg">{{ form.email.errors }}</span>
+
+            <label for="{{ form.password1.id_for_label }}"><b>Password</b></label>
+            {{ form.password1 }}
+            <span class="error-msg">{{ form.password1.errors }}</span>
+
+            <label for="{{ form.password2.id_for_label }}"><b>Confirm Password</b></label>
+            {{ form.password2 }}
+            <span class="error-msg">{{ form.password2.errors }}</span>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div class="site-footer">
+        <p>&copy; 2026 Dwight Doggy Donors. All rights reserved.</p>
+    </div>
+
+    <script src="{% static 'js/validation.js' %}"></script>
+    <script src="{% static 'js/forms.js' %}"></script>
+</body>
+
+</html>

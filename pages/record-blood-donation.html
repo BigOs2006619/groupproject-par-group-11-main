@@ -1,0 +1,81 @@
+<!-- record-blood-donation-form -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Record Blood Donation Form</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+    <div class="site-header">
+        <h1><a href="index.html">Dwight Doggy Donors</a></h1>
+        <div class="header-user">
+            <span id="user-display">Guest</span>
+            <a href="pages/contact-us.html" id="login-btn">Login</a>
+            <a href="#" id="logout-btn" hidden>Logout</a>
+        </div>
+    </div>
+
+    <div class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="dog-owner-registration.html">Dog Owner Registration</a></li>
+                <li><a href="dog-donor-registration.html">Dog Donor Registration</a></li>
+                <li><a href="donation-eligibility.html">View Donation Eligibility and Status</a></li>
+                <li><a href="donor-eligibility-assessment.html">Donor Eligibility Assessment</a></li>
+                <li><a href="blood-donation-request.html">Blood Donation Request</a></li>
+                <li><a href="donor-clinic-matching.html">Donor–Clinic Matching</a></li>
+                <li><a href="record-blood-donation.html">Record Blood Donation</a></li>
+                <li><a href="contact-us.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="error-notification" id="error-notification" hidden>
+        <p id="error-message">cannot display information due to an error</p>
+    </div>
+
+    <div class="form">
+        <form id="record-blood-donation" method="post" novalidate>
+
+            <label for="requestingdogname"><b>Dog Name</b></label>
+            <input type="text" id="requestingdogname" name="requestingdogname" placeholder="Enter Dog Name" />
+            <span class="error-msg" id="requestingdogname-error"></span>
+
+            <label for="donationdate"><b>Date of Donation</b></label>
+            <input type="date" id="donationdate" name="donationdate" />
+            <span class="error-msg" id="donationdate-error"></span>
+
+            <label for="clinicname"><b>Receiving Clinic</b></label>
+            <input type="text" id="clinicname" name="clinicname" placeholder="Enter Clinic Name" />
+            <span class="error-msg" id="clinicname-error"></span>
+
+            <label for="volume"><b>Volume Donated (mL)</b></label>
+            <input type="number" id="volume" name="volume" min="50" max="500" placeholder="Enter volume (50 - 500 mL)" />
+            <span class="error-msg" id="volume-error"></span>
+
+            <label for="postnotes"><b>Post-Donation Notes / Complications (Optional)</b></label>
+            <textarea id="postnotes" name="postnotes" placeholder="Enter Details" rows="4" maxlength="500"></textarea>
+            <span class="error-msg" id="postnotes-error"></span>
+
+            <label for="enddate"><b>Recovery Period End Date</b></label>
+            <input type="date" id="enddate" name="enddate" />
+            <span class="error-msg" id="enddate-error"></span>
+
+            <button type="submit">Submit Blood Record</button>
+        </form>
+    </div>
+
+    <div class="site-footer">
+        <p>&copy; 2026 Dwight Doggy Donors. All rights reserved.</p>
+        <a href="pages/contact-us.html">Contact Us</a>
+    </div>
+
+    <script src="../js/validation.js"></script>
+    <script src="../js/forms.js"></script>
+</body>
+
+</html>
